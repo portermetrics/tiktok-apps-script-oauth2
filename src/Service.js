@@ -402,9 +402,9 @@ Service_.prototype.handleCallback = function(callbackRequest) {
     'Token URL': this.tokenUrl_
   });
   var payload = {
-    code: code,
-    client_id: this.clientId_,
-    client_secret: this.clientSecret_,
+    auth_code: code,
+    app_id: this.clientId_,
+    secret: this.clientSecret_,
     redirect_uri: this.getRedirectUri(),
     grant_type: 'authorization_code'
   };
@@ -565,7 +565,7 @@ Service_.prototype.parseToken_ = function(content) {
   var token;
   if (this.tokenFormat_ == TOKEN_FORMAT.JSON) {
     try {
-      token = JSON.parse(content);
+      token = JSON.parse(content).data;
     } catch (e) {
       throw new Error('Token response not valid JSON: ' + e);
     }
